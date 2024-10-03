@@ -58,7 +58,7 @@ root.title("Конвертер HEIC файлів")
 # Створення змінних для зберігання шляху до папок і вибору формату
 input_folder = StringVar()
 output_folder = StringVar()
-output_format = StringVar(value="jpg")
+output_format = StringVar(value="jpeg")
 
 # Інтерфейс вибору папок та налаштувань
 Label(root, text="Виберіть папку з HEIC файлами:").grid(row=0, column=0, padx=10, pady=10)
@@ -68,7 +68,7 @@ Label(root, text="Виберіть папку для збереження:").gri
 Button(root, text="Обрати папку", command=select_output_folder).grid(row=1, column=1, padx=10, pady=10)
 
 Label(root, text="Оберіть формат для збереження:").grid(row=2, column=0, padx=10, pady=10)
-OptionMenu(root, output_format, "jpg", "png", "tiff").grid(row=2, column=1, padx=10, pady=10)
+OptionMenu(root, output_format, "jpeg", "png", "tiff").grid(row=2, column=1, padx=10, pady=10)
 
 # Кнопка для запуску конвертації
 Button(root, text="Конвертувати", command=convert_files).grid(row=3, column=0, columnspan=2, pady=20)
