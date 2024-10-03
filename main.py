@@ -1,6 +1,8 @@
 import os
 from tkinter import Tk, Label, Button, filedialog, StringVar, OptionMenu
 from tkinter import messagebox
+from tkinter import ttk
+from ttkthemes import ThemedTk
 from PIL import Image
 import pillow_heif
 
@@ -51,27 +53,36 @@ def convert_files():
 
     messagebox.showinfo("Успіх", "Конвертація завершена!")
 
-# Створення головного вікна
-root = Tk()
+# Створення головного вікна з використанням теми
+root = ThemedTk(theme="breeze")
 root.title("Конвертер HEIC файлів")
+root.geometry("500x300")
 
 # Створення змінних для зберігання шляху до папок і вибору формату
-input_folder = StringVar()
-output_folder = StringVar()
+input_folder = StringVar(value="Вхідна папка: не вибрано")
+output_folder = StringVar(value="Вихідна папка: не вибрано")
 output_format = StringVar(value="jpeg")
 
-# Інтерфейс вибору папок та налаштувань
-Label(root, text="Виберіть папку з HEIC файлами:").grid(row=0, column=0, padx=10, pady=10)
-Button(root, text="Обрати папку", command=select_input_folder).grid(row=0, column=1, padx=10, pady=10)
+# Інтерфейс вибору папок та налаштувань (використання ttk)
+ttk.Label(root, text="Виберіть папку з HEIC файлами:").grid(row=0, column=0, padx=10, pady=10)
+ttk.Button(root, text="Обрати папку", command=select_input_folder).grid(row=0, column=1, padx=10, pady=10)
 
-Label(root, text="Виберіть папку для збереження:").grid(row=1, column=0, padx=10, pady=10)
-Button(root, text="Обрати папку", command=select_output_folder).grid(row=1, column=1, padx=10, pady=10)
+# Мітка для відображення шляху до вхідної папки
+input_folder_label = ttk.Label(root, textvariable=input_folder)
+input_folder_label.grid(row=1, column=0, columnspan=2, padx=10, pady=5)
 
-Label(root, text="Оберіть формат для збереження:").grid(row=2, column=0, padx=10, pady=10)
-OptionMenu(root, output_format, "jpeg", "png", "tiff").grid(row=2, column=1, padx=10, pady=10)
+ttk.Label(root, text="Виберіть папку для збереження:").grid(row=2, column=0, padx=10, pady=10)
+ttk.Button(root, text="Обрати папку", command=select_output_folder).grid(row=2, column=1, padx=10, pady=10)
+
+# Мітка для відображення шляху до вихідної папки
+output_folder_label = ttk.Label(root, textvariable=output_folder)
+output_folder_label.grid(row=3, column=0, columnspan=2, padx=10, pady=5)
+
+ttk.Label(root, text="Оберіть формат для збереження:").grid(row=4, column=0, padx=10, pady=10)
+ttk.OptionMenu(root, output_format, "jpeg", "png", "tiff").grid(row=4, column=1, padx=10, pady=10)
 
 # Кнопка для запуску конвертації
-Button(root, text="Конвертувати", command=convert_files).grid(row=3, column=0, columnspan=2, pady=20)
+ttk.Button(root, text="Конвертувати", command=convert_files).grid(row=5, column=0, columnspan=2, pady=20)
 
 # Запуск головного циклу Tkinter
 root.mainloop()
